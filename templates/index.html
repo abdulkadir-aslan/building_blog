@@ -2,13 +2,14 @@
 
 
 {% for item in items %}
-<h1>{{ item.title }}
-    </h1>
+<ul>
+    <li>
+        <h2><a href="{% url 'cat' item.title %}">{{ item.title }}</a>  </h2> 
 
-    <h2>{{ item.slug }}
-    </h2>
-<p>{{ item.content }}
-</p>
+    </li>
+</ul>
+
+    
 
 {% endfor %}
 
