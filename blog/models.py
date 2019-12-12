@@ -4,8 +4,9 @@ STATUS = [
     ('draft','Taslak'),
     ('published','Yayinlandi'),
     ('deleted','silindi'),
+    
 ]
-DEFAULT_STATUS ="draft"
+DEFAULT_STATUS ="draft"  #defaut deger olrak verildigi icin isaretleme olmadiginda Taslak olarak goster
 
 class Category(models.Model):
     title = models.CharField(max_length=150,blank=True)
@@ -41,5 +42,14 @@ class Post(models.Model):
     update_at = models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.title
+    
 
 
+
+#blank=True ->Alan bo; birakilabilir
+#blank=False->Alan doldurulmak zorunda
+##choices->Bu alan için seçenek olarak kullanmak üzere tam olarak iki öğeden oluşur
+#Her bağlantıdaki ilk öğe, modelde ayarlanacak gerçek değer ve ikinci öğe de insan tarafından okunabilen addır7
+#YEAR_IN_SCHOOL_CHOICES = [
+    # ('FR', 'Freshman'),
+    # ('SO', 'Sophomore'),]
