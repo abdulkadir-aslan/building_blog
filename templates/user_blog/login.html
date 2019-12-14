@@ -1,0 +1,18 @@
+{% extends 'base/master.html' %}
+
+{% block content  %}
+<div class="row ml-3 mt-3">
+    
+
+ <form method="POST" >
+      {% csrf_token  %}     
+      <input name="email" type="email" placeholder="email gir">
+      <input name="password" type="password" placeholder="pass gir">
+      <button type="submit">
+         Giris Yap
+      </button>
+    </form>
+</div>
+
+
+{% endblock %}

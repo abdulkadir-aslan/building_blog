@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 STATUS = [
     ('draft','Taslak'),
@@ -10,14 +11,21 @@ STATUS = [
 DEFAULT_STATUS ="draft"  #defaut deger olrak verildigi icin isaretleme olmadiginda Taslak olarak goster
 
 class Category(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     title = models.CharField(max_length=150,blank=True)
     slug = models.SlugField(max_length=150,unique=True)
     content = models.TextField()
     status= models.CharField(max_length=10,choices=STATUS,default=DEFAULT_STATUS)
+    viewed = models.PositiveIntegerField(default=0)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at =models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.title
+
+    def user_viewed(self):
+        self.viewed +=1
+        self.save() 
+        return f"{self.viewed}"
 
     def get_absolute_url(self):
     #     return f"/category/{self.slug}/"
@@ -45,17 +53,25 @@ class Post(models.Model):
     content = models.TextField()
     cover_image = models.ImageField(upload_to='post',blank=True)
     status = models.CharField(max_length=10,choices=STATUS,default=DEFAULT_STATUS)
+    viewed = models.PositiveIntegerField(default=0)
     is_home = models.BooleanField(default=False) 
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.title   #+":"+ self.content  bu ozellik titledan sonra content i de gosteriyor
+    
+    def user_viewed(self):
+        self.viewed +=1
+        self.save()
+        return f"{self.viewed}"
+    
+    
     def get_absolute_url(self):
 
         return reverse('post',kwargs={'tag_slug':self.category.slug,'post_slug':self.slug})
     
     
-    def get_latest_post(self): #son bes postu gosteriyor
+    def  get_latest_post(self): #son bes postu gosteriyor
         latest_post= Post.objects.filter(category=self.category,status='published').exclude(id=self.id)[:5]
         return latest_post
 
