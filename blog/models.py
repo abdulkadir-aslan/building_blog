@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 STATUS = [
     ('draft','Taslak'),
@@ -17,7 +18,11 @@ class Category(models.Model):
     update_at =models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.title
-    
+
+    def get_absolute_url(self):
+    #     return f"/category/{self.slug}/"
+        return reverse('cat', kwargs={'tag_slug':self.slug})
+
 
 class Tag(models.Model):
     title = models.CharField(max_length=100,blank=True)
@@ -27,23 +32,32 @@ class Tag(models.Model):
     update_at  =models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.title
+    def get_absolute_url(self):
+    #     return f"/category/{self.slug}/"
+        return reverse('cat', kwargs={'tag_slug':self.slug})
 
 
 class Post(models.Model):
     category = models.ForeignKey(Category,on_delete=models.SET_NULL,null=True)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ForeignKey(Tag,on_delete=models.SET_NULL,null=True)
     title = models.CharField(max_length=150,blank=True)
     slug = models.SlugField(max_length=150,unique=True,blank=True)
     content = models.TextField()
     cover_image = models.ImageField(upload_to='post',blank=True)
     status = models.CharField(max_length=10,choices=STATUS,default=DEFAULT_STATUS)
     is_home = models.BooleanField(default=False) 
-    creat_at = models.DateTimeField(auto_now_add=True)
+    create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.title   #+":"+ self.content  bu ozellik titledan sonra content i de gosteriyor
-    
+    def get_absolute_url(self):
 
+        return reverse('post',kwargs={'tag_slug':self.category.slug,'post_slug':self.slug})
+    
+    
+    def get_latest_post(self): #son bes postu gosteriyor
+        latest_post= Post.objects.filter(category=self.category,status='published').exclude(id=self.id)[:5]
+        return latest_post
 
 
 #blank=True ->Alan bo; birakilabilir

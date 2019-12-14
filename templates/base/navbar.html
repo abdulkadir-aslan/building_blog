@@ -1,0 +1,16 @@
+{% load static %}
+<nav class="navbar navbar-light bg-light">
+    <div class="class">
+    <a class="navbar-brand" href=" {% url 'home'  %} ">Anasayfa</a>
+    
+    {% for item in categories %}
+        <a class="ml-4 mr-2" href="{{ item.get_absolute_url }}">
+      {% url 'cat' tag_slug=item.title  %}--
+         ( {{ item.slug }})</a>  
+    {% endfor %}
+</div>
+    <form class="form-inline">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </nav>

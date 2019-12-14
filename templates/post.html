@@ -1,12 +1,20 @@
+{% extends 'base/master.html' %}
 
-
-<hr><hr>
-{% for item in post %}
-<h1>
-    {{ item.title }}</h1>
+{% block content  %}
+<h1>{{ item }}
+</h1>
+{% for item in items %}
+{{ item.title }} <br>
+{% endfor %}
+<h4>en son bes blok yazisi</h4>
+{% for item in item.get_latest_post %}
+    {{ item.title }} <br>
 
 {% endfor %}
 
-  <hr><hr>  
+
+
+
+{% endblock %}
 
 

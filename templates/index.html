@@ -1,17 +1,23 @@
-<h1>First Try</h1>
+{% extends 'base/master.html' %}
 
 
-{% for item in items %}
+{% block content  %}
+{% if category  %}
+<h2>{{ category.title }}</h2>
+{% endif %}
 <ul>
+    {% for item in items %} 
     <li>
-        <h2><a href="{% url 'cat' item.title %}">{{ item.title }}</a>  </h2> 
-
+        <a href="{{ item.get_absolute_url }}" class="">
+       
+        {{ item.title }} --{{ item.get_absolute_url }}
+        
+    </a>
     </li>
+
+{% endfor %} 
 </ul>
-
-    
-
-{% endfor %}
+{% endblock %}
 
 
 
