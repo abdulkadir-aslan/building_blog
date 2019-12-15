@@ -53,14 +53,14 @@ class Post(models.Model):
     content = models.TextField()
     cover_image = models.ImageField(upload_to='post',blank=True)
     status = models.CharField(max_length=10,choices=STATUS,default=DEFAULT_STATUS)
-    viewed = models.PositiveIntegerField(default=0)
+    viewed = models.PositiveIntegerField(default=0) #post modelinde artis sayisini gosteren field
     is_home = models.BooleanField(default=False) 
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.title   #+":"+ self.content  bu ozellik titledan sonra content i de gosteriyor
     
-    def user_viewed(self):
+    def user_viewed(self): #yenileme degerini 1 arttiran method
         self.viewed +=1
         self.save()
         return f"{self.viewed}"

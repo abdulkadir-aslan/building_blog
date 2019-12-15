@@ -14,6 +14,7 @@ def index(request,tag_slug=None):
 def tag_post(request,tag_slug,post_slug):
     context = dict()
     context['item']= Post.objects.get(slug=post_slug)
+    context['item'].user_viewed() #postu her yeniledigimizde veri tabaninda degerini bir arttirir
     context['items']= Post.objects.filter(status='published').order_by('-create_at')
     return render(request,'post.html',context)
 

@@ -1,0 +1,17 @@
+{% extends 'base/master.html' %}
+{% block content  %}
+
+    <form action="" method="POST">
+        {% csrf_token  %}
+
+        <input type="email" name="email" placeholder="email" >
+        <input type="password" name="password" placeholder="password" >
+        <input type="password" name="password2" placeholder="pass tekrar" id="">
+        <input type="submit" class="btn btn-info" value="uye ol">
+
+    </form>
+
+
+{% endblock %}
+
+

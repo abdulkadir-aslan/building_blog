@@ -6,14 +6,15 @@
     {% for item in categories %}
         <a class="" href="{{ item.get_absolute_url }}">
       <!-- {% url 'cat' tag_slug=item.title  %}-- -->
-         ( {{ item.slug }})</a>  
+          {{ item.slug }}</a>  
     {% endfor %}
   </div>
 
     {% if request.user.is_authenticated %}
 
      {{ user.username }} <a href=" {% url 'logout'  %} ">
-      Oturumu Kapat
+       <button class="btn btn-outline-success my-2 my-sm-0" type="submit"> Oturumu Kapat </button>
+
     </a>
     {% else %}
     <a href=" {% url 'login' %} ">
