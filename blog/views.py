@@ -8,6 +8,8 @@ def index(request,tag_slug=None):
     if tag_slug:
         category = Category.objects.get(slug=tag_slug)
         context['category']=category
+        # print(category.user_viewed())  artis miktarini cmd ekraninda gosterir
+        category.user_viewed()
         context['items']= context['items'].filter(category=category)
     return render(request, "index.html", context)
 
