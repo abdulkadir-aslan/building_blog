@@ -1,31 +1,56 @@
 {% load static %}
-<nav class="navbar navbar-light bg-light">
-   
-    <a class="navbar-brand" href=" {% url 'home'  %} ">Anasayfa</a>
-    <div class="col">
-    {% for item in categories %}
-        <a class="" href="{{ item.get_absolute_url }}">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item ">
+         {% url 'home' as home %} <!-- {% if home == request.path %}active{% endif %}  bunu ekledigimizde sadece aktif oldugunda beyaz gorunecek-->
+        <a class="nav-item nav-link {% if home == request.path %}active{% endif %}" href="{{ home }}" >Anasayfa</a>
+           </li>
+      
+        {% for item in categories %}
+        <a class=" nav-item nav-link ml-3 pr-4
+        {% if item.get_absolute_url == request.path %}active{% endif %}" href="{{ item.get_absolute_url }}">
       <!-- {% url 'cat' tag_slug=item.title  %}-- -->
-          {{ item.slug }}</a>  
-    {% endfor %}
-  </div>
-
+      <li class="nav-item">  {{ item.slug }}</li></a>  
+    {% endfor %}      
+      
+    </ul>
+    <ul class="navbar-nav mr-auto ">
     {% if request.user.is_authenticated %}
-
+<li class="bg-light">
      {{ user.username }} <a href=" {% url 'logout'  %} ">
        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"> Oturumu Kapat </button>
-
+      </li>
     </a>
+    <li>
     {% else %}
     <a href=" {% url 'login' %} ">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Giris Yap</button>
    </a>
+  </li>
     {% endif %}
-      
+  </ul>      
 
-
-    <form class="form-inline">
+    <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
-  </nav>
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
