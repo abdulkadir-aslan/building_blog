@@ -18,7 +18,7 @@ urlpatterns = [
     #Category
     path('cat_added/',blog_views.cat_added,name='cat_added'),
     path('cat_list/',blog_views.cat_list, name='cat_list'),
-    path('cat_list/deleted/<int:cat_id>/<slug:status>/',blog_views.category_update_status,name='cat_delete'),
+    path('cat_list/action/<int:cat_id>/<slug:status>/',blog_views.category_update_status,name='cat_delete'),
     #admin
     path('admin/', admin.site.urls),
 ]

@@ -1,6 +1,10 @@
 from django.shortcuts import render,get_object_or_404, redirect
-from blog.models import Post,Category,Tag
+from blog.models import Post,Category,STATUS
 from django.contrib import messages
+from .forms import CategoryForm
+
+
+
 
 def index(request,tag_slug=None):
     context = dict()
@@ -21,14 +25,18 @@ def tag_post(request,tag_slug,post_slug):
     return render(request,'post.html',context)
 
 def cat_added(request):
+    context = {'form':CategoryForm() }
     if request.method =='POST':
         if request.user.is_staff:
             r_post=request.POST
-            title = r_post.get('title')            
+            print(r_post)
+            title = r_post.get('title')   
+            print(title)         
             try:              
                 item=Category.objects.create(
                     title = title,
                     slug = title,
+                    user = request.user,
                 )
                 messages.add_message(
                     request, messages.SUCCESS, 
@@ -42,12 +50,13 @@ def cat_added(request):
                         f'{title} Yayinlandi'
                     )
                 return redirect('home')
-            except:
+            except Exception:
+                print(Exception)
                 messages.add_message(
                     request,messages.WARNING,
                     f'{ title } kaydedilemedi'
                 )
-    return render(request,'user_blog/cat_added.html',{})
+    return render(request,'user_blog/cat_added.html',context)
 
 
 def  cat_list(request):
@@ -63,6 +72,9 @@ def  cat_list(request):
     
 #categorilein yayinladi veya silindi olrak gorulmesi icin yazdigimiz fonksiyon
 def category_update_status(request,cat_id,status):
+    st =[item[0] for item in STATUS]
+    if not status in st:
+        return redirect('cat_list')
     istance = Category.objects.get(id=cat_id)
     istance.status = status
     istance.save()
