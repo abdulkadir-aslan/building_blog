@@ -20,6 +20,9 @@ urlpatterns = [
     path('cat_added/',blog_views.cat_added,name='cat_added'),
     path('cat_list/',blog_views.cat_list, name='cat_list'),
     path('cat_list/action/<int:cat_id>/<slug:status>/',blog_views.category_update_status,name='cat_delete'),
+   #Panel
+   path('panel/',blog_views.panel_list,name='panel'),
+   
     #admin
     path('admin/', admin.site.urls),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

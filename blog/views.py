@@ -3,7 +3,7 @@ from blog.models import Post,Category,STATUS
 from django.contrib import messages
 from .forms import CategoryForm,CategoryModelForm
 from django.contrib.auth.models import Group
-
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -86,3 +86,7 @@ def category_update_status(request,cat_id,status):
     istance.save()
     messages.add_message(request,messages.SUCCESS,f"{istance.title} Silindi")
     return redirect('cat_list')
+
+@login_required
+def panel_list(request):
+    return render(request,'panel.html',{})
