@@ -26,7 +26,7 @@
         {% url 'cat_list' as cat_list %}
        <a class="nav-item nav-link {% if cat_list == request.path  %}active{% endif %}" href="{{ cat_list }}"> Category Listesi</a>
       </li>
-       {% if request.user.is_staff  %}
+       {% if user_is_admin  %}
           <li>
           <a class="nav-item nav-link" href="{% url 'cat_added' %}">
               Kategori Ekle

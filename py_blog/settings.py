@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'py_blog.nav_context.navbar',
+                'py_blog.nav_context.user_is_admin_func',
             ],
         },
     },
