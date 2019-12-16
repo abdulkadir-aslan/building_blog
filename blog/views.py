@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404, redirect
 from blog.models import Post,Category,STATUS
 from django.contrib import messages
-from .forms import CategoryForm
+from .forms import CategoryForm,CategoryModelForm
 
 
 
@@ -28,10 +28,12 @@ def cat_added(request):
     context = {'form':CategoryForm() }
     if request.method =='POST':
         if request.user.is_staff:
-            r_post=request.POST
-            print(r_post)
-            title = r_post.get('title')   
-            print(title)         
+            # r_post=request.POST
+            # print(r_post)
+            # title = r_post.get('title')   
+            # print(title) 
+            form = CategoryForm(request.POST)        
+            title  = form.data.get('title')
             try:              
                 item=Category.objects.create(
                     title = title,

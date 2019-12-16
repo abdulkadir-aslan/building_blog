@@ -1,0 +1,15 @@
+
+<div class="row ml-3 mt-3">
+    
+
+ <form method="POST" >
+      {% csrf_token  %}     
+      {{ form.as_p }}
+      
+      <button type="submit" class="btn btn-primary">
+          {{submit}} <!-- bu butonun uzerine verdigimiz isimdir -->
+      </button>
+    </form>
+</div>
+
+

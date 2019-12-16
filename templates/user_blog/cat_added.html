@@ -1,18 +1,19 @@
 {% extends 'base/master.html' %}
 
-    {% block content %}
+    <!-- {% block content %}
     <form class="mt-4" method="POST">
         {% csrf_token %}
-        <!-- <input name="title" type="text"   ------<<<form u ekledigimiz icin buna ihtiyac klamadi 
+      <inpu name="title" type="text"   ------<<<form u ekledigimiz icin buna ihtiyac klamadi 
             placeholder="kategori ismi gir"
-        > -->
-        {{ form.as_p }}
+        > 
+        <!-- {{ form.as_p }}
         
         <button type="submit" class="btn btn-primary">
             Kaydet
         </button>
-    </form>
-
+    </form> --> 
+    {% include 'base/form.html' with method='POST' submit="Kategoriyi Kaydet"  %}
+    
 
     {% endblock %}
 

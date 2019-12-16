@@ -3,15 +3,19 @@
 {% block content  %}
 <div class="row ml-3 mt-3">
     
+{% include 'base/form.html' with method='POST' submit='Giris Yap'  %}
 
- <form method="POST" >
+
+ <!-- <form method="POST" >
       {% csrf_token  %}     
-      <input name="email" type="email" placeholder="email gir">
-      <input name="password" type="password" placeholder="pass gir">
+      <-- <input name="email" type="email" placeholder="email gir"> ---<<bunlari sildik cunku form ozelligini kullandik bunlara gerek kalmadi
+      <input name="password" type="password" placeholder="pass gir"> -->
+      <!-- {{ form.as_p }}
+      
       <button type="submit">
          Giris Yap
       </button>
-    </form>
+    </form> --> 
 </div>
 <a href="{% url 'signup'  %}">Uye ol</a>
 

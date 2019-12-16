@@ -2,22 +2,29 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+from .forms import LoginForm
 
 
 def user_login(request):
+    context = {
+        'form':LoginForm()
+    }
     if request.method == "POST":
-        user_name= request.POST.get('email')
-        password = request.POST.get('password')
-        if user_name and password:
-            user = authenticate(request,username=user_name,password=password)
+        # user_name= request.POST.get('email')
+        # password = request.POST.get('password')
+        form = LoginForm(request.POST)
+        username = form.data.get('username')
+        password = form.data.get('password')
+        if username and password:
+            user = authenticate(request,username=username,password=password)
             print(user)
             if user is not None:
                 login(request,user)
-                messages.add_message(request,messages.SUCCESS,f'Hosgeldin { user_name }')
+                messages.add_message(request,messages.SUCCESS,f'Hosgeldin { username }')
                 return redirect('home')
             else:
                 messages.add_message(request,messages.WARNING,'Tekrar Giris Yapiniz')
-    return render(request,'user_blog/login.html',{})
+    return render(request,'user_blog/login.html',context)
 
 def user_logout(request):
     logout(request)
