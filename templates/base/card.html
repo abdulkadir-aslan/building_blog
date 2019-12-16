@@ -1,0 +1,17 @@
+{% load static %}
+
+<div class="card shadow mb-5" style="width: 18rem;">
+    {% if  item.cover_image  %}
+        <img src="{{ item.cover_image.url }}" class="card-img-top" alt="...">
+    {% else %}
+    <img src=" {% static 'img/deniz.jpg'  %}" class="card-img-top" alt="...">
+    {% endif %}
+    <div class="card-body">
+      <h5 class="card-title">{{ item.title }}
+      </h5>
+       <p class="card-text">{{ item.content|truncatewords_html:10 }}  <!--<<---<<|truncatewords_html:10  bu content kisminda 10 kelime gosterir -->
+      </p>
+      <a href="{{ item.get_absolute_url }}
+      " class="btn btn-primary">Detay</a>
+    </div>
+  </div>

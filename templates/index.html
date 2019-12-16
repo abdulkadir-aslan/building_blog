@@ -3,21 +3,33 @@
 
 {% block content  %}
 <br>
+<div class="row">
 {% if category  %}
 <h2>{{ category.title }}</h2>
 {% endif %}
-<ul>
+<!-- <ul> -->
+    {% comment %}
+
+{% url 'add_category' as add_category %}
+{% include 'base/form.html' with action="{{ add_category}}" submit="Kategoriyi Kaydet" %}
+
+{% endcomment %}
+</div>
+ <div class="card-columns"> <!-- bu card lari bir siraya koyar duzenler binevi -->
     {% for item in items %} 
-    <li>
+    <!-- <li> ---<<card koydugumuz icin bunlari pasif ettik
         <a href="{{ item.get_absolute_url }}" class="">
        
         {{ item.title }} --{{ item.get_absolute_url }}
-        
+            
     </a>
-    </li>
+    </li> -->
+    {% include 'base/card.html'  %}
+    
 
 {% endfor %} 
-</ul>
+</div>
+<!-- </ul> -->
 {% endblock %}
 
 

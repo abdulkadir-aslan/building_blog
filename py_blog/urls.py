@@ -3,7 +3,8 @@ from django.contrib import admin
 from django.urls import path
 from blog import views as blog_views
 from user_blog import views as blog_views_user
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -21,4 +22,4 @@ urlpatterns = [
     path('cat_list/action/<int:cat_id>/<slug:status>/',blog_views.category_update_status,name='cat_delete'),
     #admin
     path('admin/', admin.site.urls),
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

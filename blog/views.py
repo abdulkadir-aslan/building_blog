@@ -9,6 +9,7 @@ from django.contrib.auth.models import Group
 
 def index(request,tag_slug=None):
     context = dict()
+    context['forms'] = CategoryModelForm()
     context['items'] = Post.objects.filter(status='published').order_by('-create_at')
     if tag_slug:
         category = Category.objects.get(slug=tag_slug)
