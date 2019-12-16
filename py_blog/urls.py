@@ -13,5 +13,6 @@ urlpatterns = [
     path('signup/',blog_views_user.sign_up,name='signup'),
     path('category/<slug:tag_slug>/', blog_views.index, name='cat'),
     path('category/<slug:tag_slug>/<slug:post_slug>/',blog_views.tag_post,name='post'),
+    path('cat_added/',blog_views.cat_added,name='cat_added'),
     path('admin/', admin.site.urls),
 ]

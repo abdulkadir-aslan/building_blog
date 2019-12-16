@@ -20,19 +20,27 @@
     {% endfor %}      
       
     </ul>
-    <ul class="navbar-nav mr-auto ">
     {% if request.user.is_authenticated %}
-<li class="bg-light">
-     {{ user.username }} <a href=" {% url 'logout'  %} ">
-       <button class="btn btn-outline-success my-2 my-sm-0" type="submit"> Oturumu Kapat </button>
-      </li>
-    </a>
-    <li>
+     <ul class="navbar-nav mr-auto "> 
+    {% if request.user.is_staff  %}
+          <li>
+          <a class="nav-item nav-link" href="{% url 'cat_added' %}">
+              Kategori Ekle
+          </a>
+        </li>
+    {% endif %}
+        <li class="bg-light">
+            {{ user.username }} <a href=" {% url 'logout'  %} ">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"> Oturumu Kapat </button>
+            </a>
+        </li>
+   
     {% else %}
-    <a href=" {% url 'login' %} ">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Giris Yap</button>
-   </a>
-  </li>
+          <li>
+          <a href=" {% url 'login' %} ">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Giris Yap</button>
+        </a>
+        </li>
     {% endif %}
   </ul>      
 
