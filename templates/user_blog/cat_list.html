@@ -26,7 +26,7 @@
                 <td>{{ item.status }}
                 </td>
                 <td>
-                  {% if is_superuser %}
+                  {% if is_admin %}
                     {% if item.status == 'deleted' %}
                     <a href="{% url 'cat_delete' cat_id=item.pk status='published' %}" class="btn btn-warning">
                             Yayinla

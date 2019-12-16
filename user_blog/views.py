@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -39,8 +39,17 @@ def sign_up(request):
         password = r_post.get('password')
         password2 = r_post.get('password2')
         if username and (password==password2):
-            user = User.objects.create_user(username,username,password)
-            auth = authenticate(request,username=username,password=password)
+            # user = User.objects.create_user(username,username,password)
+            user,created =User.objects.get_or_create(username=username,email=username)
+            if created:
+                user.set_password(password)
+                user.save()
+
+            auth = authenticate(
+                request,
+                username=username,
+                password=password
+            )
             login(request,auth)
             messages.add_message(request,messages.SUCCESS,f'{ auth } Giris Basarili')
             return redirect('home')

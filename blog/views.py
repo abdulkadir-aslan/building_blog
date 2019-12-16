@@ -2,6 +2,7 @@ from django.shortcuts import render,get_object_or_404, redirect
 from blog.models import Post,Category,STATUS
 from django.contrib import messages
 from .forms import CategoryForm,CategoryModelForm
+from django.contrib.auth.models import Group
 
 
 
@@ -63,10 +64,12 @@ def cat_added(request):
 
 def  cat_list(request):
     context = dict()
+    grp = Group.objects.get(name='BlogAdmin')
     categories = Category.objects.all()
     context = {
         'cat_list': categories,
-        'is_superuser': request.user.is_superuser
+        # 'is_superuser': request.user.is_superuser --<<>>kullanici superuser oldugunda listeyi gorebiliyordu
+        'is_admin':grp in request.user.groups.all()  #burada kullanici grp icinde oldugunda gorebilecek
     }
     return render(request,'user_blog/cat_list.html',context)
 
