@@ -22,7 +22,11 @@
     </ul>
     {% if request.user.is_authenticated %}
      <ul class="navbar-nav mr-auto "> 
-    {% if request.user.is_staff  %}
+       <li>
+        {% url 'cat_list' as cat_list %}
+       <a class="nav-item nav-link {% if cat_list == request.path  %}active{% endif %}" href="{{ cat_list }}"> Category Listesi</a>
+      </li>
+       {% if request.user.is_staff  %}
           <li>
           <a class="nav-item nav-link" href="{% url 'cat_added' %}">
               Kategori Ekle

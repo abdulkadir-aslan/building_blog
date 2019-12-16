@@ -48,3 +48,23 @@ def cat_added(request):
                     f'{ title } kaydedilemedi'
                 )
     return render(request,'user_blog/cat_added.html',{})
+
+
+def  cat_list(request):
+    context = dict()
+    categories = Category.objects.all()
+    context = {
+        'cat_list': categories,
+        'is_superuser': request.user.is_superuser
+    }
+    return render(request,'user_blog/cat_list.html',context)
+
+
+    
+#categorilein yayinladi veya silindi olrak gorulmesi icin yazdigimiz fonksiyon
+def category_update_status(request,cat_id,status):
+    istance = Category.objects.get(id=cat_id)
+    istance.status = status
+    istance.save()
+    messages.add_message(request,messages.SUCCESS,f"{istance.title} Silindi")
+    return redirect('cat_list')

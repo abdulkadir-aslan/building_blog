@@ -1,0 +1,52 @@
+{% extends 'base/master.html' %}
+
+    {% block content %}
+
+        
+
+        <table class="table mt-3 ">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">title</th>
+                <th scope="col">slug</th>
+                <th scope="col">status</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in cat_list %}
+              <tr>
+                <th scope="row">{{ item.pk }}
+                  </th>
+               <td>{{ item.title }}
+                </td>
+                <td>{{ item.slug }}
+                </td>
+                <td>{{ item.status }}
+                </td>
+                <td>
+                  {% if is_superuser %}
+                    {% if item.status == 'deleted' %}
+                    <a href="{% url 'cat_delete' cat_id=item.pk status='published' %}" class="btn btn-warning">
+                            Yayinla
+                        </a>
+                    {% else %}
+                    <a href="{% url 'cat_delete' cat_id=item.pk status='deleted' %}" class="btn btn-info">
+                            Delete
+                        </a>
+                    {% endif %}
+
+
+                    {% endif %}             
+                     </td>
+              </tr>
+              {% endfor %}
+        </tbody>
+        </table>
+        
+
+        
+
+
+    {% endblock %}
